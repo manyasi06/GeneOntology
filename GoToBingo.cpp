@@ -95,7 +95,7 @@ int main() {
 	}
 
 	statsAnalysis test;
-	test.hypergeometrictest(10, 100, 20000, 100);
+	test.hypergeometrictest(3,297, 20000, 100);
 	cout << "This is my cdf: " << test.returnCDF() << endl;
 	cout << "This is my cdf: " << test.returnPDF() << endl;
 	
