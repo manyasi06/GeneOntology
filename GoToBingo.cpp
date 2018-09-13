@@ -11,12 +11,16 @@ The data should Column1 containing the geneid seperated by a tab
 #include <string>
 #include <regex>
 #include <unordered_map>
+#include <math.h>
+#include "statsAnalysis.h"
 
 
 
 
 //bool fexists(const std::string& stringIn);
 void returnfile(std::ifstream&, std::ofstream&);
+double hypergeometricProb(int, int, int, int);
+double fac(int);
 
 int main() {
 	using namespace std;
@@ -30,12 +34,14 @@ int main() {
 
 
 	
-
+	/*
 	cout << "Input the name of the file: " << endl;
 	getline(cin, stringIn);
 	cout << "The output file name is " << endl;
 	getline(cin, stringOut);
-	
+	*/
+	stringIn = "test.go.txt";
+	stringOut = "output.txt"; // development
 	
 	ifstream inputFile(stringIn);
 	ofstream outputFile(stringOut);
@@ -88,8 +94,13 @@ int main() {
 		}
 	}
 
-	/*Print out values inorder to understand the values*/
+	statsAnalysis test;
+	
 
+	
+
+	/*Print out values inorder to understand the values*/
+	/*
 	for (unordered_map<string, vector<string>>::const_iterator got2 = mymap.begin(); got2 != mymap.end(); got2++) {
 		if (got2->second.size() != 1) 
 		{
@@ -103,48 +114,38 @@ int main() {
 			cout << got2->first << '\t' << got2->second[0];
 		}
 	}
-	
+	*/
+
+	////cout << "Test Result: " << fac(5) << std::endl;
+	//int a = atoi(argv[1]), b = atoi(argv[2]), c = atoi(argv[3]), d = atoi(argv[4]);
+	//int n = a + b + c + d;
+	//// find cutoff probability
+	//double pCutoff = hypergeometricProb(a, b, c, d);
+	//double pValue = 0;
+	//// sum over probability smaller than the cutoff
+	//for (int x = 0; x <= n; ++x) { // among all possible x
+	//	if (a + b - x >= 0 && a + c - x >= 0 && d - a + x >= 0) { // consider valid x
+	//		double p = hypergeometricProb(x, a + b - x, a + c - x, d - a + x);
+	//		if (p <= pCutoff) pValue += p;
+	//	}
+	//}
+	//std::cout << "Two-sided p-value is " << pValue << std::endl;
+
 
 
-
-
-	system("pause");
+	//.system("pause");
 
 	return 0;
 
 }
 
 
-/*
-fexists(stringIn);
-oexists(stringOut);
-*/
 
-
-/******************************************************************************************************************
-	Purpose of this function is to check if the file exists.	
-*******************************************************************************************************************/
-	//bool fexists(const std::string& fileIn) {
-	//	using namespace std;
-	//	
-	//	ifstream inputFile(fileIn.c_str());
-	//	return (bool)inputFile;
-	//
-	//}
-	//
-
-	//bool oexists(const std::string& fileIn2) {
-	//	using namespace std;
-
-	//	ofstream outputFile(fileIn2.c_str());
-	//	return (bool)outputFile;
-
-	//}
 
 
 	/*****************************************************************************************************************
 	Perform hypergeometric test
-	Params: inputfile = file and output file file2
+	Params: converts file into the proper format for hypergeometric test
 	******************************************************************************************************************/
 	void returnfile(std::ifstream& file, std::ofstream& file2) {
 		using namespace std;
@@ -164,6 +165,32 @@ oexists(stringOut);
 			}
 
 		}
+
+
+		
+	}
+
+
+	//Performs hypergeometric test
+	//credit::https://genome.sph.umich.edu/w/images/f/ff/Biostat615-lecture2-handout-nup.pdf
+	double fac(int n) {
+		double ret;
+		for (ret = 1; n > 0; --n) 
+		{
+			
+			ret *= n;
+			//std::cout << "This is: ret " << ret << " and n:" << n << std::endl;
+		}
+		return ret;
+	}
+
+	//hypergeometric test
+	//paramaters
+	double hypergeometricProb(int a, int b, int c, int d) {
+		double num = fac(a + b) * fac(c + d) * fac(a + c) * fac(b + d);
+		double den = fac(a) * fac(b) * fac(c) * fac(d) * fac(a + b + c + d);
+		return num / den;
+
 	}
 
 
