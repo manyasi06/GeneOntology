@@ -18,5 +18,13 @@
     <ClCompile Include="GoToBingo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="statsAnalysis.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="statsAnalysis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
