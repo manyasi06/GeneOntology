@@ -10,7 +10,10 @@ statsAnalysis::statsAnalysis()
 
 /*
 *Description:  Perform hyper geometric test on value.
-*
+* Paramater val4: Is K number of events
+* Paramater val1: is r defective"sucess"
+* Parameter val2: is N-r total objects in population - success
+* Parameter val3: is Number of objects.
 */
 void statsAnalysis::hypergeometrictest(int val1, int val2, int val3, int val4)
 {

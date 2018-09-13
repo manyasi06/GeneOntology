@@ -95,8 +95,9 @@ int main() {
 	}
 
 	statsAnalysis test;
-	
-
+	test.hypergeometrictest(10, 100, 20000, 100);
+	cout << "This is my cdf: " << test.returnCDF() << endl;
+	cout << "This is my cdf: " << test.returnPDF() << endl;
 	
 
 	/*Print out values inorder to understand the values*/
@@ -134,7 +135,7 @@ int main() {
 
 
 
-	//.system("pause");
+	system("pause");
 
 	return 0;
 
@@ -171,9 +172,10 @@ int main() {
 		
 	}
 
-
+	/*
 	//Performs hypergeometric test
 	//credit::https://genome.sph.umich.edu/w/images/f/ff/Biostat615-lecture2-handout-nup.pdf
+	*/
 	double fac(int n) {
 		double ret;
 		for (ret = 1; n > 0; --n) 
@@ -184,9 +186,10 @@ int main() {
 		}
 		return ret;
 	}
-
+	/*
 	//hypergeometric test
 	//paramaters
+	*/
 	double hypergeometricProb(int a, int b, int c, int d) {
 		double num = fac(a + b) * fac(c + d) * fac(a + c) * fac(b + d);
 		double den = fac(a) * fac(b) * fac(c) * fac(d) * fac(a + b + c + d);
