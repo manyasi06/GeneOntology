@@ -95,9 +95,11 @@ int main() {
 	}
 
 	statsAnalysis test;
-	test.hypergeometrictest(3,297, 20000, 100);
+	//test.hypergeometrictest(18, 100, 50, 2);
+
+	test.hypergeometrictest(86, 3253, 75 , 12);
 	cout << "This is my cdf: " << test.returnCDF() << endl;
-	cout << "This is my cdf: " << test.returnPDF() << endl;
+	cout << "This is my pdf: " << test.returnPDF() << endl;
 	
 
 	/*Print out values inorder to understand the values*/
