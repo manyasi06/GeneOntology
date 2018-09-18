@@ -17,10 +17,12 @@ The data should Column1 containing the geneid seperated by a tab
 
 
 
+void printMap(std::unordered_map<std::string, std::vector<std::string>>);
 //bool fexists(const std::string& stringIn);
 void returnfile(std::ifstream&, std::ofstream&);
 double hypergeometricProb(int, int, int, int);
 double fac(int);
+
 
 int main() {
 	using namespace std;
@@ -33,13 +35,6 @@ int main() {
 	sregex_token_iterator reg_end;
 
 
-	
-	/*
-	cout << "Input the name of the file: " << endl;
-	getline(cin, stringIn);
-	cout << "The output file name is " << endl;
-	getline(cin, stringOut);
-	*/
 	stringIn = "test.go.txt";
 	stringOut = "output.txt"; // development
 	
@@ -49,28 +44,6 @@ int main() {
 	ofstream * optr = &outputFile;
 	ifstream * aptr = &inputFile;
 	returnfile(*aptr, *optr);
-
-
-	
-
-	/*
-	//It should iterate through the values using column and column2 delimited by the pipe sign.
-	//For example GO:0005524|GO:0008026 and this could be of unknown length.
-	while (getline(inputFile,value)) {
-			sregex_token_iterator it(value.begin(), value.end(), re, -1);
-			std::string p1 = (it++)->str();
-			//std::cout << "This is P1: " << p1 << " and " << it->str() << std::endl;
-			for (; it != reg_end; ++it) {
-				//std::string test = it->str();
-				//std::string test2 = test.substr(3, test.length());
-				//outputFile << p1 << " " << test2 << endl;		
-				outputFile << p1 << "=" << it->str()  << endl;	
-				
-
-			}
-				}
-
-	*/
 
 	outputFile.close();
 	inputFile.close();
@@ -94,47 +67,26 @@ int main() {
 		}
 	}
 
-	statsAnalysis test;
-	//test.hypergeometrictest(18, 100, 50, 2);
 
-	test.hypergeometrictest(8, 92, 30 , 4);
-	cout << "This is my cdf: " << 1. - test.returnCDF() << endl;
-	cout << "This is my pdf: " << test.returnPDF() << endl;
+	printMap(mymap);
 	
 
-	/*Print out values inorder to understand the values*/
-	/*
-	for (unordered_map<string, vector<string>>::const_iterator got2 = mymap.begin(); got2 != mymap.end(); got2++) {
-		if (got2->second.size() != 1) 
-		{
-			for (int i = 0; i < got2->second.size(); i++) 
-			{
-				cout << got2->first << '\t' << got2->second[i];
-			}
-		}
-		else
-		{
-			cout << got2->first << '\t' << got2->second[0];
-		}
-	}
-	*/
-
-	////cout << "Test Result: " << fac(5) << std::endl;
-	//int a = atoi(argv[1]), b = atoi(argv[2]), c = atoi(argv[3]), d = atoi(argv[4]);
-	//int n = a + b + c + d;
-	//// find cutoff probability
-	//double pCutoff = hypergeometricProb(a, b, c, d);
-	//double pValue = 0;
-	//// sum over probability smaller than the cutoff
-	//for (int x = 0; x <= n; ++x) { // among all possible x
-	//	if (a + b - x >= 0 && a + c - x >= 0 && d - a + x >= 0) { // consider valid x
-	//		double p = hypergeometricProb(x, a + b - x, a + c - x, d - a + x);
-	//		if (p <= pCutoff) pValue += p;
-	//	}
-	//}
-	//std::cout << "Two-sided p-value is " << pValue << std::endl;
 
 
+
+
+
+	
+	//statsAnalysis test;
+	//test.hypergeometrictest(18, 100, 50, 2);
+	//phyer(x-1, m, n = N-m,
+	//test.hypergeometrictest(8, 92, 30 , 4);
+	
+	/*Parameters: (Number of genes with term, Number of genes with term - total population, number of genes submitted, number of marked genes in selection)*/
+	//test.hypergeometrictest(611, 13588-611, 59 , 18);
+	//cout << "This is my cdf: " << 1. - test.returnCDF() << endl;
+	//cout << "This is my pdf: " << test.returnPDF() << endl;
+	
 
 
 	system("pause");
@@ -196,6 +148,32 @@ int main() {
 		double num = fac(a + b) * fac(c + d) * fac(a + c) * fac(b + d);
 		double den = fac(a) * fac(b) * fac(c) * fac(d) * fac(a + b + c + d);
 		return num / den;
+
+	}
+
+
+	/*
+	Function: is reponsible for printing an array 
+	Print the unorder map function
+	*/
+	void printMap(std::unordered_map<std::string, std::vector<std::string>> mymap) {
+		using namespace std;
+		for (auto local_it = mymap.begin(); local_it != mymap.end(); local_it++)
+		{
+			if(local_it->second.size() != 1)
+			{
+				for(int inVal = 0; inVal < local_it->second.size(); inVal++)
+				{
+					cout << local_it->first << " : " << local_it->second.at(inVal);
+				}
+			}
+			else
+			{
+				//define one due to there being a vector
+				cout << local_it->first << " : " << local_it->second.at(0);
+			}
+		}
+		
 
 	}
 

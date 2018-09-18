@@ -12,10 +12,12 @@ class statsAnalysis
 private:
 	double pdf;
 	double cdf;
+	
 
 public:
 	statsAnalysis();
 	void hypergeometrictest(int, int, int, int);
+
 	double returnPDF();
 	double returnCDF();
 	~statsAnalysis();
